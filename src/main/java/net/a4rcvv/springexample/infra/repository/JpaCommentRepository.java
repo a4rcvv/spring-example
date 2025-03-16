@@ -9,9 +9,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import net.a4rcvv.springexample.infra.entity.CommentEntity;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface JpaCommentRepository extends JpaRepository<CommentEntity, UUID> {
+public interface JpaCommentRepository extends JpaRepository<CommentEntity, Long> {
   @NonNull
   Page<CommentEntity> findAll(@NonNull Pageable pageable);
+
+  Optional<CommentEntity> findByCommentId(UUID commentId);
 }

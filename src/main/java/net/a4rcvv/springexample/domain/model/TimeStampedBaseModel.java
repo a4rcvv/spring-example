@@ -6,6 +6,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import net.a4rcvv.springexample.domain.vo.TimeStamp;
 
+/**
+ * Base model class with timestamp
+ * 
+ * @param <T> Type of the id
+ */
 @Getter
 public abstract class TimeStampedBaseModel<T> extends BaseModel<T> {
   @NotNull

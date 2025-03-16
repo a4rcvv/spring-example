@@ -3,6 +3,11 @@ package net.a4rcvv.springexample.domain.model;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
+/**
+ * Base model class
+ * 
+ * @param <T> Type of the id
+ */
 @Getter
 public abstract class BaseModel<T> {
   @NotNull

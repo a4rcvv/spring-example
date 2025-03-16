@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CommentRepository {
   List<Comment> find(@NotNull @Min(value = 1) int limit, @NotNull @Min(value = 0) int offset);
 
-  Optional<Comment> findById(@NotNull CommentId id);
+  Optional<Comment> findByCommentId(@NotNull CommentId id);
 
   void save(@NotNull Comment comment);
 

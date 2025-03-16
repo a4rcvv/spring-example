@@ -22,8 +22,11 @@ import net.a4rcvv.springexample.domain.vo.TimeStamp;
 public class CommentEntity {
 
   @Id
-  // @GeneratedValue
-  private UUID id;
+  @GeneratedValue
+  private Long pk;
+
+  @Column(name = "comment_id", nullable = false, unique = true)
+  private UUID commentId;
 
   @Column(name = "created_at", nullable = false, updatable = false)
   private OffsetDateTime createdAt;
@@ -35,12 +38,12 @@ public class CommentEntity {
   private String body;
 
   public Comment toDomainModel() {
-    return new Comment(new CommentId(id), new TimeStamp(createdAt, updatedAt), new CommentBody(body));
+    return new Comment(new CommentId(commentId), new TimeStamp(createdAt, updatedAt), new CommentBody(body));
   }
 
   public static CommentEntity fromDomainModel(Comment comment) {
     CommentEntity entity = new CommentEntity();
-    entity.setId(comment.getId().id());
+    entity.setCommentId(comment.getId().id());
     entity.setCreatedAt(comment.getTimeStamp().createdAt());
     entity.setUpdatedAt(comment.getTimeStamp().updatedAt());
     entity.setBody(comment.getBody().body());

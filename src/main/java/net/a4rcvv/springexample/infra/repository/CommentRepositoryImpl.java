@@ -33,9 +33,9 @@ public class CommentRepositoryImpl implements CommentRepository {
   }
 
   @Override
-  public Optional<Comment> findById(@NotNull CommentId id) {
-    return jpaCommentRepository.findById(id.id())
-        .map(CommentEntity::toDomainModel);
+  public Optional<Comment> findByCommentId(@NotNull CommentId id) {
+    var result = jpaCommentRepository.findByCommentId(id.id());
+    return result.map(CommentEntity::toDomainModel);
   }
 
   @Override

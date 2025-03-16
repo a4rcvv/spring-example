@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class CommentController {
   // 本当はCommentServiceを実装するべきです
   private final CommentRepository commentRepository;
 
+  // @Autowired は自動で追加されるらしい
   public CommentController(CommentRepository commentRepository) {
     this.commentRepository = commentRepository;
   }
@@ -37,6 +39,15 @@ public class CommentController {
         .toList();
     // 本当はコメントの総数を取得するべきです
     return new QueryResult<>(commentResponses, comments.size());
+  }
+
+  @GetMapping("/{commentId}")
+  public CommentResponse getComment(@PathVariable UUID commentId) {
+    // 本当はCommentServiceを実装するべきです
+    CommentId commentIdObj = new CommentId(commentId);
+    Comment comment = commentRepository.findByCommentId(commentIdObj).orElseThrow();
+    return new CommentResponse(comment.getId().id(), comment.getBody().body(),
+        comment.getTimeStamp().createdAt(), comment.getTimeStamp().updatedAt());
   }
 
   @PostMapping
