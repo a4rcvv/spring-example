@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.4.3"
@@ -6,6 +8,9 @@ plugins {
   checkstyle
   pmd
 	id("io.freefair.lombok") version "8.12.2.1"
+	kotlin("jvm") version "1.9.22"
+  kotlin("plugin.spring") version "1.9.22"
+  kotlin("plugin.jpa") version "1.9.22"
 }
 
 group = "net.a4rcvv"
@@ -31,7 +36,9 @@ dependencies {
 	implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("com.h2database:h2")
-	
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib")
 }
 
 tasks.withType<Test> {
@@ -40,4 +47,10 @@ tasks.withType<Test> {
 
 checkstyle {
     toolVersion = "10.21.4"
+}
+
+tasks.withType<KotlinCompile> {
+  kotlinOptions {
+    freeCompilerArgs += "-Xjsr305=strict"
+  }
 }
